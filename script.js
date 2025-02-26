@@ -1,5 +1,24 @@
 let startNewGame = document.querySelector('.start-overlay button');
+let gameBtns = document.querySelectorAll('.playing-hands button');
 let main = document.querySelector('.main');
+
+/* function manageGameOperations(){
+    let gameArray = [0, 1, 2];
+    const generateRandomHand = (randomNumber) => {
+        randomNumber = gameArray[Math.floor(gameArray.length * Math.random())]
+        return randomNumber;
+    }
+    const gameRules = (index) => {
+        if(index == generateRandomHand()){
+            console.log('tie')
+        }
+        if(index < )
+    }
+
+    return { gameRules, generateRandomHand }
+}
+const manager = manageGameOperations();
+
 
 createStartNewGame()
 
@@ -14,7 +33,15 @@ function createStartNewGame() {
 function removeCreateStartNewGame(div) {
     main.removeChild(div)
 }
-function createGameContent() {
+*/
+
+
+//Kontent glavne igrice prebaciti u index html
+//Modal takoder u html a moze se napraviti neka javascript funkcija show modal
+//
+
+
+/* function createGameContent() {
     const html = 
     `
     <div class="game-content">
@@ -43,4 +70,21 @@ startNewGame.addEventListener('click', (event) => {
     let div = event.target.closest('div');
     createGameContent();
     removeCreateStartNewGame(div)
+
+    gameBtns = document.querySelectorAll('.playing-hands button');
+    gameBtns.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            manager.gameRules(index);
+            manager.generateRandomHand();
+        })
+    })
 })
+main.addEventListener('click', () => {
+    
+}) 
+*/
+
+
+//2 varijable let playerChoice i computerChoice
+//let playerScore i computerScore
+const computerChoices = ['rock', 'paper', 'sissors'];

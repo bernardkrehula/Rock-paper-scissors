@@ -80,9 +80,7 @@ body {
     background-color: rgb(0, 0, 0, 0.5);
     margin: 0 250px;
     border-radius: 8px;
-    position: absolute;
-    top: 400px;
-    width: 400px;
+    margin: 200px 250px;
 }
 .start-overlay button{
     border: none;
