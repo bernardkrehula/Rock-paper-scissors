@@ -1,24 +1,22 @@
 let startNewGame = document.querySelector('.start-overlay button');
 let gameBtns = document.querySelectorAll('.playing-hands button');
 let main = document.querySelector('.main');
+let playerResult = document.querySelector('.player-result h2');
+let computerResult = document.querySelector('.computer-result h2');
+let overlay = document.querySelector('.start-overlay');
+let gameContent = document.querySelector('.game-content');
 
 let playerChoice; 
 let computerChoice;
-let playerScore;
-let computerScore;
+let playerScore = 0;
+let computerScore = 0;
 
+playerResult.innerHTML = `Player: ${playerScore}`;
+computerResult.innerHTML = `Computer: ${computerScore}`;
 //2 varijable let playerChoice i computerChoice
 //let playerScore i computerScore
 const computerChoices = ['rock', 'paper', 'scissors'];
 
-gameBtns.forEach((button) => {
-    button.addEventListener('click', () => {
-        playerChoice = button.id;
-        // console.log(playerChoice)
-        getRandomChoices();
-        defineGameRules();
-    })
-})
 function getRandomChoices(){
     computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 }
@@ -29,17 +27,39 @@ function defineGameRules() {
     else {
         switch(playerChoice) {
             case 'rock':
-                (computerChoice == 'scissors') ? console.log('Pobijedio si') : console.log('Izgubio si');
+                (computerChoice == 'scissors') ? addPointToPlayer() : addPointToComputer();
                 break;
             case 'paper':
-                (computerChoice == 'rock') ? console.log('Pobijedio si') : console.log('Izgubio si');
+                (computerChoice == 'rock') ? addPointToPlayer() : addPointToComputer();
                 break;
             case 'scissors':
-                (computerChoice == 'paper') ? console.log('Pobijedio si') : console.log('Izgubio si');
+                (computerChoice == 'paper') ? addPointToPlayer() : addPointToComputer();
                 break;
             }
     }
 }
 function addPointToPlayer() {
-
+    playerScore++;
 }
+function addPointToComputer(){
+    computerScore++;
+}
+gameBtns.forEach((button) => {
+    button.addEventListener('click', () => {
+        playerChoice = button.id;
+        getRandomChoices();
+        defineGameRules();
+        playerResult.innerHTML = `Player: ${playerScore}`;
+        computerResult.innerHTML = `Computer: ${computerScore}`;
+        if(playerScore == 5 || computerScore == 5){
+            overlay.style.display = 'block';
+            gameContent.style.pointerEvents = 'none';
+        }
+    })
+})
+startNewGame.addEventListener('click', () => {
+    gameContent.style.pointerEvents = 'auto';
+    overlay.style.display = 'none';
+    playerScore = 0;
+    computerScore = 0;
+})
