@@ -22,7 +22,7 @@ function getRandomChoices(){
 }
 function defineGameRules() {
     if(playerChoice == computerChoice){
-        console.log('tie');
+        // console.log('tie');
     }
     else {
         switch(playerChoice) {
@@ -63,3 +63,37 @@ startNewGame.addEventListener('click', () => {
     playerScore = 0;
     computerScore = 0;
 })
+
+function makeGameRules(){
+    const computerChoices = [];
+    const defineGameRules = () => {
+        if(playerChoice == computerChoice){
+            console.log('tie');
+        }
+        else {
+            switch(playerChoice) {
+                case 'rock':
+                    (computerChoice == 'scissors') ? addPointToPlayer() : addPointToComputer();
+                    break;
+                case 'paper':
+                    (computerChoice == 'rock') ? addPointToPlayer() : addPointToComputer();
+                    break;
+                case 'scissors':
+                    (computerChoice == 'paper') ? addPointToPlayer() : addPointToComputer();
+                    break;
+                }
+        }
+    }
+    const addPointToPlayer = () => {
+        playerScore++;
+    }
+    const addPointToComputer = () => {
+        computerScore++;
+    }
+    const getRandomChoices = () => {
+        computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        return computerChoice;
+    }
+    return { getRandomChoices, defineGameRules }
+}
+const game = makeGameRules();
