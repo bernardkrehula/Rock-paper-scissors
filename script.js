@@ -5,6 +5,8 @@ let playerResult = document.querySelector('.player-result h2');
 let computerResult = document.querySelector('.computer-result h2');
 let overlay = document.querySelector('.start-overlay');
 let gameContent = document.querySelector('.game-content');
+let weapon = document.querySelector('.weapon');
+let outcome = document.querySelector('.outcome');
 
 let playerChoice; 
 let computerChoice;
@@ -15,48 +17,7 @@ playerResult.innerHTML = `Player: ${playerScore}`;
 computerResult.innerHTML = `Computer: ${computerScore}`;
 //2 varijable let playerChoice i computerChoice
 //let playerScore i computerScore
-const computerChoices = ['rock', 'paper', 'scissors'];
 
-function getRandomChoices(){
-    computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-}
-function defineGameRules() {
-    if(playerChoice == computerChoice){
-        // console.log('tie');
-    }
-    else {
-        switch(playerChoice) {
-            case 'rock':
-                (computerChoice == 'scissors') ? addPointToPlayer() : addPointToComputer();
-                break;
-            case 'paper':
-                (computerChoice == 'rock') ? addPointToPlayer() : addPointToComputer();
-                break;
-            case 'scissors':
-                (computerChoice == 'paper') ? addPointToPlayer() : addPointToComputer();
-                break;
-            }
-    }
-}
-function addPointToPlayer() {
-    playerScore++;
-}
-function addPointToComputer(){
-    computerScore++;
-}
-gameBtns.forEach((button) => {
-    button.addEventListener('click', () => {
-        playerChoice = button.id;
-        getRandomChoices();
-        defineGameRules();
-        playerResult.innerHTML = `Player: ${playerScore}`;
-        computerResult.innerHTML = `Computer: ${computerScore}`;
-        if(playerScore == 5 || computerScore == 5){
-            overlay.style.display = 'block';
-            gameContent.style.pointerEvents = 'none';
-        }
-    })
-})
 startNewGame.addEventListener('click', () => {
     gameContent.style.pointerEvents = 'auto';
     overlay.style.display = 'none';
@@ -65,21 +26,51 @@ startNewGame.addEventListener('click', () => {
 })
 
 function makeGameRules(){
-    const computerChoices = [];
+    const computerChoices = ['rock', 'paper', 'scissors'];
+    computerChoice = computerChoices;
     const defineGameRules = () => {
+        getRandomChoices();
         if(playerChoice == computerChoice){
-            console.log('tie');
+            weapon.innerHTML = `It's a tie !`;
+            outcome.innerHTML = `${playerChoice} ties with ${computerChoice}`;
         }
         else {
             switch(playerChoice) {
                 case 'rock':
-                    (computerChoice == 'scissors') ? addPointToPlayer() : addPointToComputer();
+                    if(computerChoice == 'scissors'){
+                        addPointToPlayer()
+                        weapon.innerHTML = 'Player won!';
+                        outcome.innerHTML = `Rock beats ${computerChoice}`;
+                    }
+                    else {
+                        addPointToComputer();
+                        weapon.innerHTML = 'Computor won!';
+                        outcome.innerHTML = `${computerChoice} beats Rock`;
+                    }  
                     break;
                 case 'paper':
-                    (computerChoice == 'rock') ? addPointToPlayer() : addPointToComputer();
+                    if(computerChoice == 'rock'){
+                        addPointToPlayer()
+                        weapon.innerHTML = 'Player won!';
+                        outcome.innerHTML = `Paper beats ${computerChoice}`;
+                    }
+                    else {
+                        addPointToComputer();
+                        weapon.innerHTML = 'Computor won!';
+                        outcome.innerHTML = `${computerChoice} beats Paper`;
+                    } 
                     break;
                 case 'scissors':
-                    (computerChoice == 'paper') ? addPointToPlayer() : addPointToComputer();
+                    if(computerChoice == 'paper'){
+                        addPointToPlayer()
+                        weapon.innerHTML = 'Player won!';
+                        outcome.innerHTML = `Sissors beats ${computerChoice}`;
+                    }
+                    else {
+                        addPointToComputer();
+                        weapon.innerHTML = 'Computor won!';
+                        outcome.innerHTML = `${computerChoice} beats Sissors`;
+                    } 
                     break;
                 }
         }
@@ -94,6 +85,22 @@ function makeGameRules(){
         computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
         return computerChoice;
     }
-    return { getRandomChoices, defineGameRules }
+    return { defineGameRules, getRandomChoices, addPointToPlayer, addPointToComputer }
 }
 const game = makeGameRules();
+
+function updateOutomeText(){
+
+}
+gameBtns.forEach((button) => {
+    button.addEventListener('click', () => {
+        playerChoice = button.id;
+        game.defineGameRules();
+        playerResult.innerHTML = `Player: ${playerScore}`;
+        computerResult.innerHTML = `Computer: ${computerScore}`;
+        if(playerScore == 5 || computerScore == 5){
+            overlay.style.display = 'block';
+            gameContent.style.pointerEvents = 'none';
+        }
+    })
+})
