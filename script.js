@@ -1,9 +1,8 @@
-let startNewGame = document.querySelector('.start-overlay button');
+let startNewGameBtn = document.querySelector('.start-overlay button');
 let gameBtns = document.querySelectorAll('.playing-hands button');
-let main = document.querySelector('.main');
 let playerResult = document.querySelector('.player-result h2');
 let computerResult = document.querySelector('.computer-result h2');
-let overlay = document.querySelector('.start-overlay');
+let startNewGameOverlay = document.querySelector('.start-overlay');
 let gameContent = document.querySelector('.game-content');
 let weapon = document.querySelector('.weapon');
 let outcome = document.querySelector('.outcome');
@@ -26,7 +25,7 @@ function makeGameRules(){
             switch(playerChoice) {
                 case 'rock':
                     if(computerChoice == 'scissors'){
-                        addPointToPlayer()
+                        addPointToPlayer();
                         weapon.innerHTML = 'Player won!';
                         outcome.innerHTML = `Rock beats ${computerChoice}`;
                     }
@@ -38,7 +37,7 @@ function makeGameRules(){
                     break;
                 case 'paper':
                     if(computerChoice == 'rock'){
-                        addPointToPlayer()
+                        addPointToPlayer();
                         weapon.innerHTML = 'Player won!';
                         outcome.innerHTML = `Paper beats ${computerChoice}`;
                     }
@@ -50,7 +49,7 @@ function makeGameRules(){
                     break;
                 case 'scissors':
                     if(computerChoice == 'paper'){
-                        addPointToPlayer()
+                        addPointToPlayer();
                         weapon.innerHTML = 'Player won!';
                         outcome.innerHTML = `Sissors beats ${computerChoice}`;
                     }
@@ -84,9 +83,9 @@ function refreshResultsOnStartBtn(){
     computerResult.innerHTML = `Computer: ${computerScore}`;
 }
 
-startNewGame.addEventListener('click', () => {
+startNewGameBtn.addEventListener('click', () => {
     gameContent.style.pointerEvents = 'auto';
-    overlay.style.display = 'none';
+    startNewGameOverlay.style.display = 'none';
     playerScore = 0;
     computerScore = 0;
     refreshResultsOnStartBtn();
@@ -98,7 +97,7 @@ gameBtns.forEach((button) => {
         game.defineGameRules();
         refreshResultsOnStartBtn();
         if(playerScore == 5 || computerScore == 5){
-            overlay.style.display = 'block';
+            startNewGameOverlay.style.display = 'block';
             gameContent.style.pointerEvents = 'none';
         }
     })
