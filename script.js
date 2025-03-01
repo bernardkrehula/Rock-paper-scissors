@@ -13,23 +13,11 @@ let computerChoice;
 let playerScore = 0;
 let computerScore = 0;
 
-playerResult.innerHTML = `Player: ${playerScore}`;
-computerResult.innerHTML = `Computer: ${computerScore}`;
-//2 varijable let playerChoice i computerChoice
-//let playerScore i computerScore
-
-startNewGame.addEventListener('click', () => {
-    gameContent.style.pointerEvents = 'auto';
-    overlay.style.display = 'none';
-    playerScore = 0;
-    computerScore = 0;
-})
-
 function makeGameRules(){
     const computerChoices = ['rock', 'paper', 'scissors'];
     computerChoice = computerChoices;
     const defineGameRules = () => {
-        getRandomChoices();
+        getRandomComputerChoice();
         if(playerChoice == computerChoice){
             weapon.innerHTML = `It's a tie !`;
             outcome.innerHTML = `${playerChoice} ties with ${computerChoice}`;
@@ -81,23 +69,34 @@ function makeGameRules(){
     const addPointToComputer = () => {
         computerScore++;
     }
-    const getRandomChoices = () => {
+    const getRandomComputerChoice = () => {
         computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
         return computerChoice;
     }
-    return { defineGameRules, getRandomChoices, addPointToPlayer, addPointToComputer }
+    return { defineGameRules, getRandomComputerChoice, addPointToPlayer, addPointToComputer }
 }
 const game = makeGameRules();
 
-function updateOutomeText(){
+refreshResultsOnStartBtn();
 
+function refreshResultsOnStartBtn(){
+    playerResult.innerHTML = `Player: ${playerScore}`;
+    computerResult.innerHTML = `Computer: ${computerScore}`;
 }
+
+startNewGame.addEventListener('click', () => {
+    gameContent.style.pointerEvents = 'auto';
+    overlay.style.display = 'none';
+    playerScore = 0;
+    computerScore = 0;
+    refreshResultsOnStartBtn();
+})
+
 gameBtns.forEach((button) => {
     button.addEventListener('click', () => {
         playerChoice = button.id;
         game.defineGameRules();
-        playerResult.innerHTML = `Player: ${playerScore}`;
-        computerResult.innerHTML = `Computer: ${computerScore}`;
+        refreshResultsOnStartBtn();
         if(playerScore == 5 || computerScore == 5){
             overlay.style.display = 'block';
             gameContent.style.pointerEvents = 'none';
